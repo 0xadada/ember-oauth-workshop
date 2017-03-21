@@ -8,8 +8,8 @@ module.exports = function(app) {
     const body = req.body;
 
     const payload = {
-      'client_id': process.env.GITHUB_DEV_CLIENT_ID,
-      'client_secret': process.env.GITHUB_DEV_CLIENT_SECRET,
+      'client_id': process.env.GITHUB_CLIENT_ID,
+      'client_secret': process.env.GITHUB_CLIENT_SECRET,
       'code': body.authorizationCode
     };
     if (body.state) {
@@ -27,14 +27,17 @@ module.exports = function(app) {
         'Content-Type': 'application/json',
         'Content-Length': Buffer.byteLength(data),
         'Accept': 'application/json',
-        'User-Agent': process.env.GITHUB_DEV_USER_AGENT
+        'User-Agent': process.env.GITHUB_USER_AGENT
       }
     };
 
     const ghReq = https.request(options, (ghRes) => {
       let body = '';
       ghRes.setEncoding('utf8');
-      ghRes.on('data', (chunk) => body += chunk);
+      ghRes.on('data', (chunk) => {
+        body += chunk;
+        console.log('body', body);
+      });
       ghRes.on('end', () => {
         res.writeHead(200, {
           'Content-Type': 'application/json'

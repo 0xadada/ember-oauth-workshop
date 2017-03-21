@@ -1,0 +1,13 @@
+{{#if model.isLoading}}
+  <div style="height:64px; width:64px; background:#ccc"></div>
+  <progress max="100"></progress>
+{{else}}
+  <img src={{model.avatarUrl}} alt width=64>
+{{/if}}
+
+<dl>
+  <dt>Login</dt>
+  <dd>{{model.login}}</dd>
+  <dt>Name</dt>
+  <dd>{{model.name}}</dd>
+</dl>

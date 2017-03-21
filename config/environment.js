@@ -20,8 +20,9 @@ module.exports = function(environment) {
       sessionServiceName: 'session',
       providers: {
         'github-oauth2': {
-          apiKey: process.env.CLIENT_ID,
+          apiKey: process.env.GITHUB_CLIENT_ID,
           redirectUri: 'http://localhost:4200',
+          tokenExchangeUri: process.env.DEV_TOKEN_EXCHANGE_URL,
           scope: 'repo user',
         },
       },
